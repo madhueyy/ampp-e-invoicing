@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Invoice</title>
+    <style>
+        @font-face {
+            font-family:"CustomFont";
+            src: url(resources/LeagueSpartan-Bold.woff);
+        }
+
+        @font-face {
+            font-family:"CustomFont2";
+            src: url(resources/LeagueSpartan-Regular.woff);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EAE0D4;
+            font-family:"CustomFont";
+        }
+
+        /* For navbar */
+        .top-bar {
+            background-color: #000000;
+            padding: 17px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Top left button on navbar */
+        .home_button {
+            color: #ffffff;
+            margin: 6px 0;
+            font-size:large;
+            transition: 0.4s;
+            text-decoration:none;
+        }
+
+        .home_button:hover {
+            color: #636363;
+        }
+
+        /* Top right login button on navbar */
+        .logo {
+            width: 50px;
+            margin: 0px 0;
+            text-decoration:none;
+            color: #ffffff;
+            transition: 0.4s;
+        }
+
+        .logo:hover {
+            color: #636363;
+            transition: 0.4s;
+        }
+
+        h1 {
+            text-align: center;
+            filter: drop-shadow(2px 3px 1px #b4b4b4);
+        }
+
+        /* Container for creating new invoice form */
+        .new_invoice_container {
+            display: block;
+            padding: 10px 20px;
+        }
+
+        #invoiceForm {
+            margin: 20px 300px;
+            display: block;
+            font-family:"CustomFont2";
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 5px;
+            filter: drop-shadow(2px 3px 1px #b4b4b4);
+        }
+
+        #invoiceForm label {
+            text-align: left;
+            margin-right: 10px;
+        }
+
+        .req {
+            color: red;
+        }
+
+        *:required {
+            background-color: gold;
+        }
+
+        #invoiceForm input[type="text"] {
+            width: 300px;
+            padding: 10px 20px;
+            margin: 12px 0;
+            display: inline-block;
+            border: 0px solid #ccc;
+            box-sizing: border-box;
+            font-family:"CustomFont2";
+            background-color: #E5E5E5;
+            border-radius: 2px;
+            filter: drop-shadow(1px 1px 1px #b4b4b4);
+        }
+
+        #invoiceForm input[type="date"] {
+            width: 120px;
+            margin: 20px;
+            padding: 10px 15px;
+            background-color: #cecece;
+            border: 0px solid #b4b4b4;
+            border-radius: 5px;
+            filter: drop-shadow(1px 1px 1px #b4b4b4);
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .section {
+            margin-top: 20px;
+            border-top: 2px solid #000;
+            padding-top: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family:"CustomFont";
+        }
+
+        /* Create invoice and render invoice buttons */
+        .create-invoice {
+            background-color: #5ec487;
+            font-family: "CustomFont2";
+            font-size: 15px;
+            color: #fff;
+            padding: 12px 48px 12px 24px;
+            border: none;
+            margin: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 30%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%23fff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 24px center;
+            transition: 0.4s;
+        }
+
+        .create-invoice:hover {
+            background-color: #428363;
+            transition: 0.4s;
+        }
+
+        /* Render new invoice button */
+        .render-invoice {
+            background-color: rgb(131, 187, 252);
+            font-family: "CustomFont2";
+            font-size: 15px;
+            color: #fff;
+            padding: 12px 48px 12px 24px;
+            border: none;
+            margin: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 30%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%23fff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 24px center;
+            margin-left: 75%;
+        }
+
+        .render-invoice:disabled {
+            background-color: lightgrey;
+            color: grey;
+            cursor: default;
+        }
+
+        .addItem {
+            background-color: rgb(245, 159, 79);
+            font-family: "CustomFont2";
+            font-size: 15px;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            margin: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 30%;
+            transition: 0.4s;
+        }
+
+        .addItem:hover {
+            background-color: rgb(214, 127, 45);
+            transition: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="top-bar">
+        <div class="container" onclick="myFunction(this)">
+            <a class="home_button" href="./dashboard.html" >HOME</a>
+        </div>
+        <div class="container">
+            <a class="logo" href="./index.html" >LOGOUT</a>
+        </div>
+    </div>
+
+    <!-- New invoice form -->
+    <div class="new_invoice_container">
+        <h1>Create new invoice</h1>
+        <form id="invoiceForm">
+            <!-- Customer Details -->
+            <div class="section_exclude">
+                <div class="section-title">Customer Details</div>
+                <label for="customerId">Customer ID:<span class="req">*</span></label>
+                <input type="text" id="customerId" name="customerId"><br>
+                <label for="customerName">Customer Name:<span class="req">*</span></label>
+                <input type="text" id="customerName" name="customerName"><br>
+                <label for="customerCity">City:<span class="req">*</span></label>
+                <input type="text" id="customerCity" name="customerCity"><br>
+                <label for="customerPostCode">Post Code:<span class="req">*</span></label>
+                <input type="text" id="customerPostCode" name="customerPostCode"><br>
+                <label for="customerState">State:<span class="req">*</span></label>
+                <input type="text" id="customerState" name="customerState"><br>
+                <label for="customerStreetAdd">Street Address:<span class="req">*</span></label>
+                <input type="text" id="customerStreetAdd" name="customerStreetAdd"><br>
+                <label for="customerContactName">Contact Name:<span class="req">*</span></label>
+                <input type="text" id="customerContactName" name="customerContactName"><br>
+                <label for="customerPhone">Phone:<span class="req">*</span></label>
+                <input type="text" id="customerPhone" name="customerPhone"><br>
+                <label for="customerEmail">Email:<span class="req">*</span></label>
+                <input type="text" id="customerEmail" name="customerEmail"><br>
+            </div>
+            
+            <!-- Seller Details -->
+            <div class="section">
+                <div class="section-title">Seller Details</div>
+                <label for="sellerId">Seller ID:<span class="req">*</span></label>
+                <input type="text" id="sellerId" name="sellerId"><br>
+                <label for="sellerName">Seller Name:<span class="req">*</span></label>
+                <input type="text" id="sellerName" name="sellerName"><br>
+                <label for="sellerCity">City:<span class="req">*</span></label>
+                <input type="text" id="sellerCity" name="sellerCity"><br>
+                <label for="sellerPostCode">Post Code:<span class="req">*</span></label>
+                <input type="text" id="sellerPostCode" name="sellerPostCode"><br>
+                <label for="sellerState">State:<span class="req">*</span></label>
+                <input type="text" id="sellerState" name="sellerState"><br>
+                <label for="sellerStreetAdd">Street Address:<span class="req">*</span></label>
+                <input type="text" id="sellerStreetAdd" name="sellerStreetAdd"><br>
+            </div>
+
+            <!-- Invoice Details -->
+            <div class="section">
+                <div class="section-title">Invoice Details</div>
+                <label for="invoiceId">Invoice ID:<span class="req">*</span></label>
+                <input type="text" id="invoiceId" name="invoiceId"><br>
+                <label for="invoiceDate">Date:<span class="req">*</span></label>
+                <input type="date" id="invoiceDate" name="invoiceDate"><br>
+                <label for="buyerRef">Buyer Reference:<span class="req">*</span></label>
+                <input type="text" id="buyerRef" name="buyerRef"><br>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="section">
+                <div class="section-title">Payment Details</div>
+                <label for="paymentId">Payment ID:<span class="req">*</span></label>
+                <input type="text" id="paymentId" name="paymentId"><br>
+                <label for="financialAccId">Financial Account ID:<span class="req">*</span></label>
+                <input type="text" id="financialAccId" name="financialAccId"><br>
+                <label for="accName">Account Name:<span class="req">*</span></label>
+                <input type="text" id="accName" name="accName"><br>
+                <label for="bsb">BSB:<span class="req">*</span></label>
+                <input type="text" id="bsb" name="bsb"><br>
+            </div>
+
+            <!-- Item Details -->
+            <div class="section" id="itemDetails">
+                <div class="section-title">Item Details</div>
+            </div>
+
+            <button class="addItem" type="button" onclick="addItem()">Add Item</button>
+
+            <p><span class="req">*</span> - Required field</p>
+
+            <!-- Submit Button -->
+            <div class="button-container">
+                <button class="create-invoice">Create Invoice</button>
+            </div>
+        </form>
+
+        <button class="render-invoice">Render Invoice</button>
+    </div>
+
+    <script>
+        // Get the "Render Invoice" button element
+        const renderInvoiceButton = document.querySelector('.render-invoice');
+
+        // Disable the "Render Invoice" button initially
+        renderInvoiceButton.disabled = true;
+
+        let itemCount = 0;
+
+        function addItem() {
+            itemCount++;
+            const itemDetails = document.getElementById('itemDetails');
+            const newItem = document.createElement('div');
+            newItem.classList.add('item');
+            newItem.id = 'item' + itemCount;
+            newItem.innerHTML = `
+                <div class="item-separator"></div>
+                <div class="item-details">
+                    <h3>Item ${itemCount}</h3>
+                    <label for="itemId${itemCount}">Item ID:<span class="req">*</span></label>
+                    <input type="text" id="itemId${itemCount}" name="itemId${itemCount}"><br>
+                    <label for="unitPrice${itemCount}">Unit Price:<span class="req">*</span></label>
+                    <input type="text" id="unitPrice${itemCount}" name="unitPrice${itemCount}"><br>
+                    <label for="quantity${itemCount}">Quantity:<span class="req">*</span></label>
+                    <input type="text" id="quantity${itemCount}" name="quantity${itemCount}"><br>
+                    <label for="itemName${itemCount}">Name:<span class="req">*</span></label>
+                    <input type="text" id="itemName${itemCount}" name="itemName${itemCount}"><br>
+                    <label for="taxCategory${itemCount}">Tax Category:<span class="req">*</span></label>
+                    <input type="text" id="taxCategory${itemCount}" name="taxCategory${itemCount}"><br>
+                </div>
+            `;
+            itemDetails.appendChild(newItem);
+        }
+
+        document.querySelector('.render-invoice').addEventListener('click', function(event) {
+            window.location.href = "./upload.html";
+        });
+
+        // Requesting API after create invoice button clicked
+        document.getElementById('invoiceForm').addEventListener('submit', function(event) {
+            // Prevent the form from submitting normally
+            event.preventDefault();
+
+            // Construct JSON object from form data
+            const formData = new FormData(this);
+
+
+            // Construct the item array
+            const items = [];
+            const itemDetails = document.querySelectorAll('.item');
+            itemDetails.forEach(item => {
+                const itemId = item.querySelector(`#itemId${item.id.replace('item', '')}`).value;
+                const unitPrice = parseFloat(item.querySelector(`#unitPrice${item.id.replace('item', '')}`).value);
+                const quantity = parseInt(item.querySelector(`#quantity${item.id.replace('item', '')}`).value);
+                const itemName = item.querySelector(`#itemName${item.id.replace('item', '')}`).value;
+                const taxCategory = item.querySelector(`#taxCategory${item.id.replace('item', '')}`).value;
+                items.push({
+                    itId: itemId,
+                    unitPrice: unitPrice,
+                    quantity: quantity,
+                    name: itemName,
+                    taxCategory: taxCategory
+                });
+            });
+
+            const jsonData = {
+                customer: {
+                    id: formData.get('customerId'),
+                    name: formData.get('customerName'),
+                    address: {
+                        city: formData.get('customerCity'),
+                        postCode: formData.get('customerPostCode'),
+                        state: formData.get('customerState'),
+                        streetAdd: formData.get('customerStreetAdd')
+                    },
+                    contact: {
+                        name: formData.get('customerContactName'),
+                        phone: formData.get('customerPhone'),
+                        email: formData.get('customerEmail')
+                    }
+                },
+                seller: {
+                    id: formData.get('sellerId'),
+                    name: formData.get('sellerName'),
+                    address: {
+                        city: formData.get('sellerCity'),
+                        postCode: formData.get('sellerPostCode'),
+                        state: formData.get('sellerState'),
+                        streetAdd: formData.get('sellerStreetAdd')
+                    }
+                },
+                invoice: {
+                    inId: formData.get('invoiceId'),
+                    date: formData.get('invoiceDate'),
+                    buyerRef: formData.get('buyerRef'),
+                    payment: {
+                        pid: formData.get('paymentId'),
+                        financialAccId: formData.get('financialAccId'),
+                        accName: formData.get('accName'),
+                        bsb: formData.get('bsb')
+                    }
+                },
+                item: items
+            };
+
+            // Make POST request
+            fetch('https://w13a-brownie.vercel.app/v2/api/invoice/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to create invoice');
+                }
+                // Convert response to Blob object
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                
+                // Create a link element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'invoice.xml';
+                document.body.appendChild(a);
+
+                // Trigger a click event to download the file
+                a.click();
+
+                // Enable render invoice button
+                renderInvoiceButton.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error creating invoice:', error.message);
+            });
+        });
+    </script>
+</body>
+</html>

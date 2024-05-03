@@ -1,0 +1,290 @@
+openapi: 3.0.0
+info: 
+  title: E-invoice Rendering API
+  description: Contains the server information for the API routes and Swagger API methods
+  version: "1.0.0"
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Z5363700/DAMPP/1.0.0
+    variables:
+      port:
+        default: "5000"
+tags:
+  - name: Authentication
+    description: Operations surrounding the authetication of a user
+  - name: Users
+    description: Opertation about the user and their account
+  - name: Invoice Rendering
+    description: Opertations surrounding the rendering of a file
+        
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticating when a user is logging in
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLogin' 
+      responses:
+        '200':
+          description: Successful user login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthLogin' 
+        '400':
+          description: Invalid credentials
+
+  /auth/logout:
+    post: 
+      tags:
+        - Authentication
+      summary: User logout
+      description: Invalidates a user when logging out
+      responses:
+        '200':
+          description: Successful user logout
+  
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: User registering
+      description: Allowing a new user to create an account
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth' 
+      responses:
+        '200':
+          description: Successful user registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth' 
+        '400':
+          description: Invalid user registration 
+  /users:
+    get:
+      tags: 
+        - Users
+      summary: Gather a list of all users
+      description: If the user is authenticated 
+      responses:
+        '200':
+          description: User list generated and returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User' 
+        '500':
+          description: Internal server error 
+
+  /users/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Deletes a user account
+      description: Given the ID the user is able to delete their account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user's account to delete.
+          schema:
+            type: string
+      responses:
+        '200': 
+          description: OK. User account deleted
+        '500':
+          description: Internal server error 
+    patch:
+      tags:
+        - Users
+      summary: Update a user account
+      description: Given, the ID the user is able to update their account information
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the user's account to delete.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 123
+                username:
+                  type: string
+                  example: username
+                email:
+                  type: string
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password
+              required:
+                - id
+      responses:
+        '200':
+          description: OK. Account details updated
+        '500':
+          description: Internal server error 
+      
+
+  /upload-xml/pdf: 
+    post:
+      tags:
+        - Invoice Rendering
+      summary: Invoice rendering to a PDF file
+      description: Rendering an invoice into a PDF for the user
+      requestBody: 
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Upload' 
+      responses:
+        '200': 
+          description: OK. Returns PDF
+          content:
+            application/pdf:
+              schema:
+                $ref: '#/components/schemas/UploadPdf'
+        '400':
+          description: Render unsuccessful, no filed uploaded
+
+  /upload-xml/json: 
+    post:
+      tags:
+        - Invoice Rendering
+      summary: Invoice rendering to a JSON file
+      description: Rendering an invoice into a JSON for the user
+      requestBody: 
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Upload' 
+      responses:
+        '200':
+          description: OK. Returns JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadJson'
+        '400':
+          description: Render unsuccessful, no filed uploaded
+        '422':
+          description: Render unsuccessful, empty file provided
+
+  /upload-xml/html: 
+    post:
+      tags:
+        - Invoice Rendering
+      summary: Invoice rendering to a HTML file
+      description: Rendering an invoice into a HTML for the user
+      requestBody: 
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Upload' 
+      responses:
+        '200':
+          description: OK. Returns HTML
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/UploadHtml'
+        '400':
+          description: Render unsuccessful, no filed uploaded
+      
+    
+components:
+  schemas:
+    Auth:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user's email address
+          example: user@example.com
+        password:
+          type: string
+          description: user's account password
+          example: Password123
+        username:
+          type: string
+          description: user's account handle
+          example: spongebob21
+      required:
+        - email
+        - password
+        - username
+    AuthLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user's email address
+          example: user@example.com
+        password:
+          type: string
+          description: user's account password
+          example: Password123
+      required:
+        - email
+        - password
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user's email address
+          example: user@example.com
+        username:
+          type: string
+          description: user's account handle
+          example: spongebob21
+      required:
+        - email
+        - password
+        - username
+    Upload:
+      type: object
+      properties:
+        ubl:
+          type: string
+          format: binary
+          description: UBL XML file provided which is to be converted into a HTML file for the user. 
+          example: <Invoice></Invoice>
+    UploadHtml:
+      type: string
+      format: html
+      example: <html>Invoice</html>
+    UploadPdf:
+      type: string
+      format: string
+      example: string
+    UploadJson:
+      type: object
+      properties:
+        invoice:
+          type: object

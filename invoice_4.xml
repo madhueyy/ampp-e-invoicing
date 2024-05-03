@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+	<cbc:CustomizationID>urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+	<cbc:ID>123a</cbc:ID>
+	<cbc:IssueDate>2024-04-01</cbc:IssueDate>
+  
+	<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+	<cbc:DocumentCurrencyCode>AUD</cbc:DocumentCurrencyCode>
+	<cbc:BuyerReference>1093A8</cbc:BuyerReference>
+  
+	<cac:AccountingSupplierParty>
+      <cac:Party>
+        <cbc:EndpointID>13 004 085 616</cbc:EndpointID>
+				<cac:PartyName>
+        	<cbc:Name>NSW Transport</cbc:Name>
+        </cac:PartyName>
+
+        
+	<cac:PostalAddress>
+    <cbc:StreetName>35</cbc:StreetName>
+		<cbc:CityName>Dubbo</cbc:CityName>
+		<cbc:PostalZone>2830</cbc:PostalZone>
+		<cbc:CountrySubentity>NSW</cbc:CountrySubentity>
+		<cac:Country>
+		<cbc:IdentificationCode>AU</cbc:IdentificationCode>
+		</cac:Country>
+	</cac:PostalAddress>
+        <cac:PartyLegalEntity>
+		<cbc:RegistrationName>NSW Transport</cbc:RegistrationName>
+		<cbc:CompanyID>13 004 085 616</cbc:CompanyID>
+	</cac:PartyLegalEntity>
+        
+
+		</cac:Party>
+    </cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+      <cac:Party>
+        <cbc:EndpointID>53 004 085 616</cbc:EndpointID>
+				<cac:PartyName>
+        	<cbc:Name>Madhu Shrestha</cbc:Name>
+        </cac:PartyName>
+
+        
+	<cac:PostalAddress>
+    <cbc:StreetName>35</cbc:StreetName>
+		<cbc:CityName>Dubbo</cbc:CityName>
+		<cbc:PostalZone>2830</cbc:PostalZone>
+		<cbc:CountrySubentity>NSW</cbc:CountrySubentity>
+		<cac:Country>
+		<cbc:IdentificationCode>AU</cbc:IdentificationCode>
+		</cac:Country>
+	</cac:PostalAddress>
+        
+        
+	<cac:Contact>
+		<cbc:Name>Madhu Shrestha</cbc:Name>
+		<cbc:Telephone>0472784953</cbc:Telephone>
+		<cbc:ElectronicMail>madhu.shrestha666@gmail.com</cbc:ElectronicMail>
+	</cac:Contact>
+
+		</cac:Party>
+    </cac:AccountingCustomerParty>
+  <cac:PaymentMeans>
+  <cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode>
+  <cbc:PaymentID>109</cbc:PaymentID>
+  <cac:PayeeFinancialAccount>
+      <cbc:ID>1234567890</cbc:ID>
+      <cbc:Name>Madhu Shrestha</cbc:Name>
+      <cac:FinancialInstitutionBranch>
+          <cbc:ID>123456</cbc:ID>
+      </cac:FinancialInstitutionBranch>
+  </cac:PayeeFinancialAccount>  
+</cac:PaymentMeans>
+  
+  
+	
+    <cac:TaxTotal>
+		<cbc:TaxAmount currencyID="AUD">0.00</cbc:TaxAmount>
+		
+	<cac:TaxSubtotal>
+		<cbc:TaxableAmount currencyID="AUD">100</cbc:TaxableAmount>
+		<cbc:TaxAmount currencyID="AUD">0.00</cbc:TaxAmount>
+		<cac:TaxCategory>
+			<cbc:ID>Z</cbc:ID>
+			<cbc:Percent>0</cbc:Percent>
+			<cac:TaxScheme>
+				<cbc:ID>GST</cbc:ID>
+			</cac:TaxScheme>
+		</cac:TaxCategory>
+	</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	
+    <cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="AUD">100</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="AUD">100</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="AUD">100</cbc:TaxInclusiveAmount>
+		<cbc:PayableAmount currencyID="AUD">100</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	
+
+	<cac:InvoiceLine>
+		<cbc:ID>194mn21</cbc:ID>
+		<cbc:InvoicedQuantity >10</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="AUD">100.00</cbc:LineExtensionAmount>
+		<cac:Item>
+			<cbc:Name>Madhu Shrestha</cbc:Name>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>Z</cbc:ID>
+				<cbc:Percent>0</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>GST</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="AUD">10</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	</Invoice>

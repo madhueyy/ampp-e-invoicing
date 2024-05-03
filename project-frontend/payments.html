@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Plans</title>
+    <style>
+        @font-face {
+            font-family:"CustomFont";
+            src: url(resources/LeagueSpartan-Bold.woff);
+        }
+
+        @font-face {
+            font-family:"CustomFont2";
+            src: url(resources/LeagueSpartan-Regular.woff);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EAE0D4;
+            font-family:"CustomFont";
+        }
+
+        /* For navbar */
+        .top-bar {
+            background-color: #000000;
+            padding: 17px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Top left button on navbar */
+        .home_button {
+            color: #ffffff;
+            margin: 6px 0;
+            font-size:large;
+            transition: 0.4s;
+            text-decoration:none;
+        }
+
+        .home_button:hover {
+            color: #636363;
+        }
+
+        /* Top right login button on navbar */
+        .logo {
+            width: 50px;
+            margin: 0px 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .payment-plan-container {
+            background-color: #ffffff; /* White background */
+            width: 85%; /* Set the desired width */
+            margin: 20px auto; /* Center the container */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
+            font-family:"CustomFont2"; /* This assumes you want the regular font here */
+        }
+
+        .plan-options {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .plan {
+            padding: 15px;
+            border: 1px solid #ccc; /* Light gray border */
+        }
+
+        .plan h3 {
+            background-color: #EAE0D4; /* Same as page background for the plan title */
+            margin: -15px -15px 15px -15px; /* Aligns background with plan border */
+            padding: 10px;
+        }
+
+        .plan p {
+            margin: 5px 0;
+        }
+
+        /* different colours for each option tier */
+        .plan.features h3 {
+            background-color: #C6CCC1;
+        }
+
+        .plan.basic h3 {
+            background-color: #D3D3D3; /* Light Gray */
+        }
+
+        .plan.standard h3 {
+            background-color: #A9A9A9; /* Dark Gray */
+        }
+
+        .plan.premium h3 {
+            background-color: #4169E1; /* Royal Blue */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="top-bar">
+        <div class="container" onclick="myFunction(this)">
+            <a class="home_button" href="./index.html" >HOME</a>
+        </div>
+        <div class="container">
+            <a class="logo" href="./index.html" ><img src="resources/logo-navbar.png" alt="Your Logo" class="logo"></a>
+        </div>
+    </div>
+
+    <!-- Add this section within the <body> after the top-bar div -->
+    <div class="payment-plan-container">
+        <h2>Payment Plan Options</h2>
+        <div class="plan-options">
+            <div class="features">
+                <h3>Features</h3>
+            </div>
+            <div class="plan basic">
+                <h3>Basic</h3>
+                <p>Monthly price: FREE</p>
+            </div>
+            <div class="plan standard">
+                <h3>Standard</h3>
+                <p>Monthly price: $5</p>
+            </div>
+            <div class="plan premium">
+                <h3>Premium</h3>
+                <p>Monthly price: $10</p>
+            </div>
+        </div>
+    </div>

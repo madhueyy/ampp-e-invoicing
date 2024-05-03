@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+
+        @font-face {
+            font-family:"CustomFont";
+            src: url(resources/LeagueSpartan-Bold.woff);
+        }
+
+        @font-face {
+            font-family:"CustomFont2";
+            src: url(resources/LeagueSpartan-Regular.woff);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EAE0D4;
+            font-family:"CustomFont";
+        }
+
+        /* For navbar */
+        .top-bar {
+            background-color: #000000;
+            padding: 17px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Top left button on navbar */
+        .home_button {
+            color: #ffffff;
+            margin: 6px 0;
+            font-size:large;
+            transition: 0.4s;
+            text-decoration:none;
+        }
+
+        .home_button:hover {
+            color: #636363;
+            transition: 0.4s;
+        }
+
+        /* Top right login button on navbar */
+        .logo {
+            width: 50px;
+            margin: 0px 0;
+            text-decoration:none;
+            color: #ffffff;
+            transition: 0.4s;
+        }
+
+        .logo:hover {
+            color: #636363;
+            transition: 0.4s;
+        }
+
+        /* List of stored invoices */
+        .container-for-invoices {
+            display: flex;
+            justify-content: space-between;
+            padding: 0px 10px;
+            width: 100%;
+        }
+
+        .recent-invoices {
+            overflow-y: scroll;
+            background-color: #428363;
+            color: white;
+            padding: 20px 10px;
+            border-radius: 5px;
+            width: 45%;
+            filter: drop-shadow(2px 3px 1px #b4b4b4);
+            margin-bottom: 20px;
+            float: left;
+            white-space: nowrap;
+        }
+
+        .recent-invoices::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .recent-invoices::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .recent-invoices::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        .recent-invoices::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        #invoices-list {
+            list-style-type: none;
+            margin: 10px;
+            padding: 0;
+        }
+
+        #invoices-list li {
+            color: black;
+            font-family: "CustomFont2";
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            filter: drop-shadow(2px 3px 1px #5a5a5a);
+        }
+
+        /* Create new invoice button */
+        .create-invoice {
+            background-color: #5ec487;
+            font-family: "CustomFont2";
+            font-size: 15px;
+            color: #fff;
+            padding: 12px 48px 12px 24px;
+            border: none;
+            margin: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 30%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%23fff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 24px center;
+            transition: 0.4s;
+        }
+
+        .create-invoice:hover {
+            background-color: #428363;
+            transition: 0.4s;
+        }
+
+        /* Render new invoice button */
+        .render-invoice {
+            background-color: rgb(131, 187, 252);
+            font-family: "CustomFont2";
+            font-size: 15px;
+            color: #fff;
+            padding: 12px 48px 12px 24px;
+            border: none;
+            margin: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 30%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%23fff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 24px center;
+            transition: 0.4s;
+        }
+
+        .render-invoice:hover {
+            background-color: #3379d4;
+            transition: 0.4s;
+        }
+
+        h2 {
+            padding: 5px 20px;
+            filter: drop-shadow(2px 3px 1px #b4b4b4);
+        }
+
+        .right_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px;
+            margin: 10px auto;
+            filter: drop-shadow(2px 3px 1px #b4b4b4);
+        }
+
+        .dashboard-image {
+            display: block;
+            margin: 20px auto; /* Adjust margin as needed */
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 15px 20px;
+            margin: 16px 0;
+            display: inline-block;
+            border: 0px solid #ccc;
+            box-sizing: border-box;
+            font-family:"CustomFont2";
+            background-color: #dddddd;
+            border-radius: 2px;
+        }
+
+        p {
+            color: #ffffff;
+            font-size: 16px;
+            margin: 0px 0px;
+        }
+
+        .send-multiple-invoices {
+            background-color: rgb(112, 166, 228);
+            color: black;
+            display: flex;
+            flex-direction: column;
+            margin: 16px 50px;
+            padding: 15px 50px;
+            border-radius: 5px;
+            filter: drop-shadow(2px 3px 1px #616161);
+        }
+
+        input[type=txt] {
+            width: 100%;
+            padding: 15px 20px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 0px solid #ffffff;
+            box-sizing: border-box;
+            font-family:"CustomFont2";
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
+        /* Send email button */
+        .send-email {
+            color: #fff;
+            background-color: rgb(73, 130, 196);
+            font-family: "CustomFont2";
+            font-size: 15px;
+            color: #fff;
+            padding: 12px 48px 12px 24px;
+            border: none;
+            margin: 20px auto;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 30%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7.41' height='12' viewBox='0 0 7.41 12'%3E%3Cpath d='M10,6,8.59,7.41,13.17,12,8.59,16.59,10,18l6-6Z' transform='translate(-8.59 -6)' fill='%23fff'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 24px center;
+            transition: 0.4s;
+        }
+
+        .send-email:hover {
+            background-color: rgb(35, 107, 155);
+            transition: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="top-bar">
+        <div class="container" onclick="myFunction(this)">
+            <a class="home_button" href="./index.html" >HOME</a>
+        </div>
+        <div class="container">
+            <a class="logo" href="./index.html" >LOGOUT</a>
+        </div>
+    </div>
+
+    <h2>Recent Invoices</h2>
+    <div class="container-for-invoices">
+        <div class="recent-invoices">
+            <p>Find an invoice</p>
+            <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Invoice ID">
+            <ul id="invoices-list">
+                <!-- Placeholder for invoices -->
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="send-multiple-invoices">
+                <h3>Email Invoices</h3>
+                <input type="txt" id="from" placeholder="From">
+                <input type="txt" id="recipient" placeholder="Email">
+                <button id="send-button" class="send-email">Send selected invoices</button>
+            </div>
+        </div>
+
+        <div class="right_container">
+            <button class="create-invoice">Create new invoice</button>
+            <img src="./resources/dashboard_picture.png" alt="Dashboard Image" class="dashboard-image">
+            <button class="render-invoice">Render new invoice</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch invoices data from the server
+            fetchInvoicesData();
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Button to trigger sending selected invoices
+            const sendButton = document.getElementById('send-button');
+
+            // Add click event listener to sendButton
+            sendButton.addEventListener('click', function() {
+                // Display success message
+                const successMessage = document.createElement('p');
+                successMessage.textContent = "Email sent successfully!";
+                successMessage.style.color = '#ffffff';
+                successMessage.style.marginTop = '10px';
+                
+                const sendMultipleInvoicesDiv = document.querySelector('.send-multiple-invoices');
+                sendMultipleInvoicesDiv.appendChild(successMessage);
+
+                const from = document.getElementById("from").value;
+                const recipient = document.getElementById("recipient").value;
+
+                // Get all checkboxes for selected invoices
+                const checkboxes = document.querySelectorAll('input[name="selectedInvoices"]:checked');
+                
+                const selectedInvoices = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+                const promises = selectedInvoices.map(invoice => {
+                    return getInvoiceToSendJSON(invoice)
+                        .then(jsonData => {
+                            console.log(jsonData.Invoice)
+                            return { filename: invoice, jsonString: jsonData.Invoice };
+                        });
+                });
+
+                Promise.all(promises)
+                    .then(jsonFiles => {
+                        const requestData = {
+                            from: from,
+                            recipient: recipient,
+                            jsonFiles: jsonFiles
+                        };
+                        
+                        console.log(requestData)
+                        return sendSelectedInvoices(requestData);
+                    })
+            });
+        });
+
+        async function getInvoiceToSendJSON(invoiceID) {
+            try {
+                const token = localStorage.getItem('token');
+
+                const response = await fetch('http://localhost:8081/api/invoices', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch invoices data');
+                }
+
+                const invoices = await response.json();
+                const targetInvoice = invoices.find(invoice => invoice._id === invoiceID);
+                return targetInvoice.data
+            } catch (error) {
+                console.error('Error fetching invoice data:', error);
+                throw error; // Re-throw the error to handle it outside of this function
+            }
+        }
+
+        async function sendSelectedInvoices(requestData) {
+            try {
+                console.log(requestData)
+                const token = localStorage.getItem('token');
+
+                // Send the request to the server
+                const response = await fetch('https://invoice-seng2021-24t1-eggs.vercel.app/send/multiInvoice-json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to send invoices');
+                }
+
+                console.log('Invoices sent successfully');
+                // Handle success response as needed
+            } catch (error) {
+                console.error('Error sending invoices:', error);
+            }
+        }
+
+        async function fetchSpecificInvoice(invoiceID) {
+            const token = localStorage.getItem('token');
+
+            // Redirect to view invoice file
+            await fetch(`http://localhost:8081/api/view-invoice?id=${invoiceID}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                // Create a temporary URL for the blob
+                const url = window.URL.createObjectURL(blob);
+                // Open the URL in a new tab
+                const newTab = window.open(url, '_blank');
+                if (!newTab) {
+                    throw new Error("Failed to open new tab for PDF");
+                }
+                // Provide a meaningful title for the new tab
+                newTab.document.title = `Formatted ${conversionFormat.toUpperCase()} File`;
+            });
+        }
+
+        async function fetchInvoicesData() {
+            try {
+                const token = localStorage.getItem('token');
+
+                const response = await fetch('http://localhost:8081/api/invoices', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch invoices data');
+                }
+
+                const invoices = await response.json();
+                const invoicesList = document.getElementById('invoices-list');
+
+                // Clear existing list items
+                invoicesList.innerHTML = '';
+
+                // Append invoices to the list
+                invoices.forEach(invoice => {
+                    const listItem = document.createElement('li');
+                    listItem.style.display = 'flex';
+                    listItem.style.alignItems = 'center';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = 'selectedInvoices';
+                    checkbox.value = invoice._id;
+
+                    const label = document.createElement('label');
+                    label.textContent = `${invoice._id} - ${invoice.format.toUpperCase()}`;
+                    label.style.marginLeft = '10px';
+
+                    // Append checkbox and label to list item
+                    listItem.appendChild(checkbox);
+                    listItem.appendChild(label);
+
+                    // Create an image element
+                    const img = document.createElement('img');
+                    img.src = './resources/view.png';
+                    img.alt = 'Invoice Image';
+                    img.style.width = '30px';
+                    img.style.marginLeft = '40%';
+                    img.style.cursor = 'pointer';
+
+                    // Append the image to the list item
+                    listItem.appendChild(img);
+
+                    img.addEventListener('click', function() {
+                        invoiceID = invoice._id;
+                        fetchSpecificInvoice(invoiceID)
+                    });
+
+                    // Append the list item to the list
+                    invoicesList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching invoices:', error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const createInvoiceButton = document.querySelector(".create-invoice");
+        
+            // Redirect to create-invoice.html
+            createInvoiceButton.addEventListener("click", function() {
+                window.location.href = "./create-invoice.html";
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const createInvoiceButton = document.querySelector(".render-invoice");
+        
+            // Redirect to render-invoice.html
+            createInvoiceButton.addEventListener("click", function() {
+                window.location.href = "./upload.html";
+            });
+        });
+
+        function searchFunction() {
+            // Declare variables
+            var input, filter, ul, li, txtValue;
+                input = document.getElementById('myInput');
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("invoices-list");
+                li = ul.getElementsByTagName('li');
+
+                // Loop through all list items, and hide those who don't match the search query
+                for (let i = 0; i < li.length; i++) {
+                    txtValue = li[i].textContent || li[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                    } else {
+                        li[i].style.display = 'none';
+                    }
+            }
+        }
+    </script>
+</body>
+</html>

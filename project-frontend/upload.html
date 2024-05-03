@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>User Profile</title>
+
+    <style>
+        @font-face {
+            font-family:"CustomFont";
+            src: url(resources/LeagueSpartan-Bold.woff);
+        }
+
+        @font-face {
+            font-family:"CustomFont2";
+            src: url(resources/LeagueSpartan-Regular.woff);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EAE0D4;
+            font-family:"CustomFont";
+        }
+
+        /* For navbar */
+        .top-bar {
+            background-color: #000000;
+            padding: 1px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Top left button on navbar */
+        .home_button {
+            color: #ffffff;
+            margin: 6px -16px;
+            font-size:large;
+            transition: 0.4s;
+            text-decoration:none;
+        }
+
+        .home_button:hover {
+            color: #636363;
+        }
+
+        /* Top right login button on navbar */
+        .logo {
+            width: 50px;
+            margin: 0px -16px;
+        }
+
+        /* For login container */
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            margin: 150px auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 50px;
+            color: #E17C52;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 12px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #adffce;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 10px;
+            font-size: medium;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        p {
+            text-align: right;
+            font-family:"CustomFont2";
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.password {
+            float: right;
+            padding-top: 16px;
+        }
+
+        .render-container {
+            width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            left: 33%;
+            top: 10%;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        select {
+            margin-bottom: 20px;
+        }
+
+        .send-invoice {
+            background-color: #000000;
+            color: white;
+            padding: 14px 20px;
+            margin: 20px 0;
+            border: none;
+            cursor: pointer;
+            width: 30%;
+            position: absolute;
+            left: 730px;
+            top: 90%;
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            height: 350px;
+            width: 400px;
+        }
+
+        .custom-file-upload {
+            background-color: #2196F3; /* Blue */
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .custom-file-upload:hover {
+            background-color: #0b7dda; /* Blue */
+        }
+
+        .conversion {
+            width: 50%;
+            width: 400px;
+            margin-left: 700px;
+            margin-top: -50px;
+        }
+
+        .upload {
+            display: block;
+            width: 50%;
+            width: 400px;
+            margin-left: 400px;
+        }
+
+        .convert_button {
+            margin: 300px;
+            position: absolute;
+            top: 65%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            left: 350px;
+            width:100px;
+        }
+
+        .translate {
+            margin: 400px;
+            position: absolute;
+            top: 36%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            left: 150px;
+        }
+
+        .redesign {
+            margin: 400px;
+            position: absolute;
+            top: 44%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            left: 170px;
+        }
+
+        /* Top right login button on navbar */
+        .logo {
+            width: 50px;
+            margin: 0px 0;
+            text-decoration:none;
+            color: #ffffff;
+            transition: 0.4s;
+        }
+
+        .logo:hover {
+            color: #636363;
+            transition: 0.4s;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="top-bar">
+        <div class="container" onclick="myFunction(this)">
+            <a class="home_button" href="./dashboard.html" >HOME</a>
+        </div>
+        <div class="container">
+            <a class="logo" href="./index.html" >LOGOUT</a>
+        </div>
+    </div>
+
+    <!-- <div class="render-container"> -->
+        <h1>Render Your Invoice</h1>
+        <img src="resources/frontend.jpg" alt="Invoice" class="center">
+
+        <div class="upload">
+            <form id="uploadForm" enctype="multipart/form-data">
+            <label for="xmlFile" class="custom-file-upload" style="font-family: CustomFont2; font-size: 20px; color: #EAE0D4;"><i class="fa fa-upload"></i> Upload XML File</label>
+            <input type="file" id="xmlFile" name="xmlFile" accept=".xml" required style="display:none;">
+            <span id="file-chosen" style="font-family: CustomFont2;">No file chosen</span>
+        </div>
+        
+        <div class="conversion">
+            <label for="conversionFormat" style="font-family: CustomFont2; font-size: 20px;">Select Format</label>
+            <select id="conversionFormat" name="conversionFormat" required>
+                <option value="json" style="font-family: CustomFont2;">JSON</option>
+                <option value="html" style="font-family: CustomFont2;">HTML</option>
+                <option value="pdf" style="font-family: CustomFont2;">PDF</option>
+            </select>
+        </div>
+
+        <div class="translate">
+            <label for="Multi-Language" style="font-family: CustomFont2; font-size: 20px;">翻译 Tranlsate to Mandarin?</label>
+            <select id="translationOption" name="translationOption" required>
+                <option value="no" style="font-family: CustomFont2;">No</option>
+                <option value="yes" style="font-family: CustomFont2;">Yes</option>
+            </select>
+        </div>
+
+        <div class="redesign">
+            <label for="Redesign" style="font-family: CustomFont2; font-size: 20px;">Template Options:</label>
+            <select id="conversionFormat" name="conversionFormat" required>
+                <option value="json" style="font-family: CustomFont2;">Standard</option>
+                <option value="html" style="font-family: CustomFont2;">Navy Blue</option>
+                <option value="html" style="font-family: CustomFont2;">Dark Green</option>
+            </select>
+        </div>
+
+        <div class="convert_button">
+            <button type="submit" style="color: #24A357; font-family: CustomFont2; font-size: 20px;">Render</button>
+        </div>
+   
+        </form>
+
+    <button class="send-invoice" style="color: #EAE0D4; background-color: #E17C52; width: 150px; left: 80%;">Send invoice</button>
+
+    </div>
+
+     <script>
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+    
+            const formData = new FormData(this);
+    
+            // Get the selected conversion format
+            const conversionFormat = formData.get("conversionFormat");
+
+            // Get the selected translation option
+            const translationOption = document.getElementById("translationOption").value;
+    
+            // Determine the appropriate endpoint based on the conversion format
+            let endpoint = "";
+            if (conversionFormat === "json") {
+                endpoint = "https://dampp-git-main-madhus-projects-df092904.vercel.app/upload-xml/json";
+            } else if (conversionFormat === "html") {
+                // Check if translation to Mandarin is selected
+                if (translationOption === "yes") {
+                    endpoint = "https://dampp-git-main-madhus-projects-df092904.vercel.app/upload-xml/html?translate=true";
+                } else {
+                    endpoint = "https://dampp-git-main-madhus-projects-df092904.vercel.app/upload-xml/html";
+                }                
+            } else if (conversionFormat === "pdf") {
+                // endpoint = "https://dampp-2vp7upr58-madhus-projects-df092904.vercel.app/upload-xml/html";
+                endpoint = "http://localhost:8081/upload-xml/pdf";
+            } else {
+                console.error("Invalid conversion format selected");
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            console.log(token);
+    
+            // Make POST request
+            fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                // console.log(response.blob());
+                return response.blob();
+            })
+            .then(blob => {
+                // Create a temporary URL for the blob
+                const url = window.URL.createObjectURL(blob);
+                // Open the URL in a new tab
+                const newTab = window.open(url, '_blank');
+                if (!newTab) {
+                    throw new Error("Failed to open new tab for PDF");
+                }
+                // Provide a meaningful title for the new tab
+                newTab.document.title = `Formatted ${conversionFormat.toUpperCase()} File`;
+            })
+            .catch(error => {
+                console.error("Conversion failed:", error);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const createInvoiceButton = document.querySelector(".send-invoice");
+        
+            // Redirect to create-invoice.html
+            createInvoiceButton.addEventListener("click", function() {
+                window.location.href = "./send-invoice.html";
+            });
+        });
+
+        // // Update the selected file name display
+        const fileInput = document.getElementById('xmlFile');
+        const fileChosen = document.getElementById('file-chosen');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileChosen.textContent = fileInput.files[0].name;
+            } else {
+                fileChosen.textContent = 'No file chosen';
+            }
+        });
+
+    </script>
+    
+</body>
+</html>

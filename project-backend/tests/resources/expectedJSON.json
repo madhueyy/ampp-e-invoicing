@@ -1,0 +1,32 @@
+{
+    "Invoice": {
+      "UBLVersionID": "2.1",
+      "CustomizationID": "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0",
+      "ProfileID": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+      "ID": "EBWASP1002",
+      "IssueDate": "2022-02-07",
+      "InvoiceTypeCode": "380",
+      "DocumentCurrencyCode": "AUD",
+      "BuyerReference": "EBWASP1002",
+      "AdditionalDocumentReference": { "ID": "ebwasp1002" },
+      "AccountingSupplierParty": { "Party": {} },
+      "AccountingCustomerParty": { "Party": {} },
+      "PaymentMeans": { "PaymentMeansCode": "1", "PaymentID": "EBWASP1002" },
+      "PaymentTerms": { "Note": "As agreed" },
+      "TaxTotal": { "TaxAmount": "10.00", "TaxSubtotal": {} },
+      "LegalMonetaryTotal": {
+        "LineExtensionAmount": "100.00",
+        "TaxExclusiveAmount": "100.00",
+        "TaxInclusiveAmount": "110.00",
+        "PayableRoundingAmount": "0.00",
+        "PayableAmount": "110.00"
+      },
+      "InvoiceLine": {
+        "ID": "1",
+        "InvoicedQuantity": "500.0",
+        "LineExtensionAmount": "100.00",
+        "Item": {},
+        "Price": {}
+      }
+    }
+  }
